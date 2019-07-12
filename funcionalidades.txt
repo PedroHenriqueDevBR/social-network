@@ -1,0 +1,3 @@
+1 - Gerencia de conexões
+2 - Alterar imagem de capa
+3 - Listar os amigos primeiro na busca de usuários

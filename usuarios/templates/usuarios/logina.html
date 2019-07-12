@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <title>Connectedin - Login</title>
+</head>
+
+<body class="container bg-dark login-page">
+
+    <main class="row">
+        <section class="col col-sm-12 col-md-8 text-white center-center">
+            <div class="container">
+                <h1>ConnectedIn</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum deleniti, nostrum soluta nobis
+                    voluptas blanditiis eaque, labore quasi sed sequi commodi nihil animi illum. Autem sunt facere
+                    aspernatur ducimus laborum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint saepe
+                    placeat sit incidunt beatae explicabo fugiat? Tempora cumque et, recusandae repudiandae corporis
+                    vero voluptas neque repellendus exercitationem placeat, beatae commodi.
+                </p>
+            </div>
+        </section>
+        <aside class="col col-sm-12 col-md-4 container-login bg-info text-white px-3">
+            <div class="container">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="user">Login</label>
+                        <input class="form-control" name="user" id="user"
+                            placeholder="Digite o seu username">
+                    </div>
+                    <div class="form-group mt-0">
+                        <label for="pass">Senha</label>
+                        <input class="form-control" type="password" name="pass" id="pass"
+                            placeholder="Digite a sua senha">
+                    </div>
+                    <button class="btn btn-warning text-white full-w" type="submit">ENTRAR</button><br>
+                    <a class="btn btn-success text-white full-w" href="{% url 'registrar' %}">CADASTRAR</a><br>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info mt-3" role="alert">
+                            {{message}}
+                            </dixv>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </aside>
+    </main>
+
+
+</body>
+
+</html>

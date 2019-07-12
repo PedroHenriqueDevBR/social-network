@@ -1,0 +1,68 @@
+html, body {
+    height: 100%;
+}
+
+main.login {
+    height: 100%;
+    overflow: hidden;
+}
+
+#background-media {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+}
+.form-login {
+    background: #ffffffaa;
+}
+.conteudo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    text-shadow: 0 0 5px #000;
+    text-align: center;
+}
+main.index {
+    min-height: calc(100% - 56px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.timeline {
+    height: 100%;
+}
+.post-index .card-header p {
+    width: fit-content;
+    background: #000000bb;
+    padding: 5px 15px;
+}
+
+.opcoes-do-usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.center-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-w {
+    width: 100%;
+}

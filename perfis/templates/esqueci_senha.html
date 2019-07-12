@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <title>Alterar senha</title>
+</head>
+
+<body>
+    <div class="container_alt_senha bg-dark">
+        <div class="alterar_senha">
+                {% if messages %}
+                {% for message in messages %}
+        
+                <div class="alert alert-warning full-w">
+                    {{message}}
+                </div>
+        
+                {% endfor %}
+                {% endif %}
+        </div>
+
+        <section class="card alterar_senha bg-warning">
+            <div class="card-header text-white">
+                <h2 class="text-center">Alterar a senha</h2>
+            </div>
+            <div class="card-body bg-light">
+                <form method="POST">
+                    {% csrf_token %}
+                    <p class="alert alert-primary">
+                        Para alterar a senha informe o seu email.
+                        Será enviado um email contendo o link para que você possa alterar a senha
+                    </p>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="email" name="email" id="email"
+                            placeholder="Digite a sua senha antiga">
+                    </div>
+                    <button type="submit" class="btn btn-info full-w">SALVAR</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>

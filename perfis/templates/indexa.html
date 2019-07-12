@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+    <p class="alert alert-danger">
+        {{ message }}
+    </p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Todos os perfis</strong>
+        </div>
+
+        <div class="card-body">
+            {%  if perfis %}
+            <ul>
+                {%  for perfil in perfis  %}
+                {% if perfil != perfil_logado %}
+                <li>
+                    <a href="{% url 'exibir' perfil.id %}"> {{ perfil.nome }} / {{ perfil.email }} </a>
+                </li>
+                {% endif %}
+                {%  endfor %}
+            </ul>
+            {% else %}
+            <p>Nenhum Perfil encontrado</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        {% if perfil_logado.convites_recebidos.all %}
+        <div class="card-header">
+            <h2>Convites recebidos</h2>
+        </div>
+
+        <div class="card-body">
+            <div class="alert alert-warning">
+                Você tem
+                {{ perfil_logado.convites_recebidos.count }}
+                convite{{ perfil_logado.convites_recebidos.count|pluralize }}
+                aguardando aprovação
+            </div>
+
+            <ul class="list-group">
+                {% for convite in perfil_logado.convites_recebidos.all %}
+                <li class="list-group-item">
+                    {{ convite.solicitante.nome }} <br>
+                    <a href="perfil/{{ convite.id }}/aceitar" class="btn btn-success"> Aceitar </a>
+                    <a href="perfil/{{ convite.id }}/rejeitar" class="btn btn-danger"> Rejeitar </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% else %}
+        <div>
+            <p>Nenhum convite recebido</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="card mt-3">
+        {% if perfil_logado.contatos.all %}
+        <div class="card-header">
+            Você possui
+            {{ perfil_logado.contatos.count }}
+            contato{{ perfil_logado.convites_recebidos.count|pluralize }}
+        </div>
+
+        <div class="card-body">
+            <ul class="list-group">
+                {% for contato in perfil_logado.contatos.all %}
+                <li class="list-group-item">
+                    {{ contato.nome }} - {{ contato.email }}
+                    <a href="{% url 'exibir' contato.id %}" class="btn btn-info float-right"> Exibir </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% else %}
+        <div>
+            <p>Nenhum convite recebido</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="card mt-3">
+        {% if perfil_logado.posts.all %}
+        <div class="card-header">
+            Você possui
+            {{ perfil_logado.posts.count }}
+            post{{ perfil_logado.posts.count|pluralize }}
+        </div>
+
+        <div class="card-body">
+            <ul class="list-group">
+                {% for post in perfil_logado.posts.all %}
+                <li class="list-group-item">
+                    {{ post.titulo }} - {{ post.text }} <br>
+                    <a href="{% url 'excluir_postagem' post.id %}" onclick="return confirm('Deseja realmente excluir postagem?')" class="btn btn-danger float-right mx-3"> Excluir </a>
+                    <a href="#" class="btn btn-info float-right"> Ver completo </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% else %}
+        <div>
+            <p>Nenhum post cadastrado</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Timeline -->
+    <div class="container my-3">
+        <div class="card-columns">
+            {% if timeline %}
+                {% for post in timeline %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ post.perfil.nome }}</h5><br>
+                        <pre>{{ post.data_postagem }}</pre>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">{{ post.titulo }}</h6>
+                        <p class="card-text">{{ post.text }}</p>
+                        <a href="#" class="card-link">Ver completo</a>
+                        <a href="#" class="card-link">Curtir</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+        </div>
+        <div>
+            <p>Seus amigos são antisociais, não há posts</p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+
+{% block main %}
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
+    <div class="container_alt_senha bg-dark">
+        <div class="alterar_senha">
+                {% if messages %}
+                {% for message in messages %}
+        
+                <div class="alert alert-warning full-w">
+                    {{message}}
+                </div>
+        
+                {% endfor %}
+                {% endif %}
+        </div>
+
+        <section class="card alterar_senha bg-warning">
+            <div class="card-header text-white">
+                <h2 class="form-signin-heading text-center">Crie seu usuário</h2>
+            </div>
+            <div class="card-body bg-light">
+                <form class="form-signin" action="{% url 'registrar' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_nome">Nome</label>
+                        <input type="text" id="id_nome" name="nome" class="form-control" placeholder="Nome *" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email</label>
+                        <input type="email" id="id_email" name="email" class="form-control" placeholder="Email *" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_senha">Senha</label>
+                        <input type="password" id="id_senha" name="senha" class="form-control" placeholder="Senha *" required>
+                    </div>
+                    
+                    <hr />
+                    <div class="form-group">
+                        <label for="id_telefone">Telefone</label>
+                        <input id="id_telefone" name="telefone" class="form-control" placeholder="Telefone" required>
+                        <label for="id_nome_empresa">Empresa</label>
+                        <input id="id_nome_empresa" name="nome_empresa" class="form-control" placeholder="Empresa" required>
+                    </div>
+            
+                    <hr />
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Registrar</button>
+
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <button class="close" data-dismiss="alert" arial-hiden="True">x</button>
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+            
+                </form>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

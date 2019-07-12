@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+</head>
+
+<body>
+
+    <main class="row mx-0 login bg-info">
+        <section class="col col-md-8 descricao bg-dark">
+            <video src="{% static '/media/video/bg-login.mp4' %}" autoplay="true" loop="true" id="background-media"></video>
+            <div class="conteudo container">
+                <h1>ConnectedIn</h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta itaque autem repellat iusto quasi
+                    laborum nulla reprehenderit magni at quisquam placeat nesciunt totam sint magnam odit, amet, quis
+                    odio architecto.
+                </p>
+            </div>
+        </section>
+        <aside class="col col-md-4 center-center form-login">
+
+            {% if messages %}
+            <div class="alertas">
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
+                            aria-hidden="true">&times;</span> </button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="user">Login</label>
+                    <input class="form-control" name="user" id="user" placeholder="user@example.com">
+                </div>
+                <div class="form-group mt-0">
+                    <label for="pass">Senha</label>
+                    <input class="form-control" type="password" name="pass" id="pass" placeholder="********">
+                </div>
+                <button class="btn btn-success full-w" type="submit">Entrar</button>
+                <button type="button" class="btn btn-info mt-2 full-w" data-toggle="modal"
+                    data-target="#cadastrar-usuario">Cadastrar</button>
+            </form>
+        </aside>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cadastrar-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cadastrar novo usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'registrar' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_nome">Nome</label>
+                            <input type="text" id="id_nome" name="nome" class="form-control" placeholder="Nome *"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Email</label>
+                            <input type="email" id="id_email" name="email" class="form-control" placeholder="Email *"
+                                required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_senha">Senha</label>
+                            <input type="password" id="id_senha" name="senha" class="form-control" placeholder="Senha *"
+                                required>
+                        </div>
+
+                        <hr />
+                        <div class="form-group">
+                            <label for="id_telefone">Telefone</label>
+                            <input id="id_telefone" name="telefone" class="form-control" placeholder="Telefone"
+                                required>
+                            <label for="id_nome_empresa">Empresa</label>
+                            <input id="id_nome_empresa" name="nome_empresa" class="form-control" placeholder="Empresa"
+                                required>
+                        </div>
+
+                        <hr />
+                        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Registrar</button>
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <button class="close" data-dismiss="alert" arial-hiden="True">x</button>
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

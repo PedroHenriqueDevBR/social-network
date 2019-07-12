@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <title>Alterar senha</title>
+</head>
+
+<body>
+    <div class="container_alt_senha bg-dark">
+        <div class="alterar_senha">
+                {% if messages %}
+                {% for message in messages %}
+        
+                <div class="alert alert-warning full-w">
+                    {{message}}
+                </div>
+        
+                {% endfor %}
+                {% endif %}
+        </div>
+
+        <section class="card alterar_senha bg-warning">
+            <div class="card-header text-white">
+                <h2 class="text-center">Alterar a senha</h2>
+            </div>
+            <div class="card-body bg-light">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="senha_antiga">Senha antiga</label>
+                        <input class="form-control" type="password" name="senha_antiga" id="senha_antiga"
+                            placeholder="Digite a sua senha antiga">
+                    </div>
+                    <div class="form-group">
+                        <label for="nova_senha">Nova senha</label>
+                        <input class="form-control" type="password" name="nova_senha" id="nova_senha"
+                            placeholder="Digite uma senha nova">
+                    </div>
+                    <div class="form-group">
+                        <label for="repete_senha">Repete senha</label>
+                        <input class="form-control" type="password" name="repete_senha" id="repete_senha"
+                            placeholder="Digite a senha nova novamente">
+                    </div>
+                    <button type="submit" class="btn btn-info full-w">SALVAR</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
