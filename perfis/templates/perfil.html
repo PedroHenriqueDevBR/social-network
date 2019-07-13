@@ -17,7 +17,7 @@
                 background-size: cover; 
                 background-position: center; 
                 background-attachment: fixed;">
-	<div class="navbar-dark" style="background: #3949AB;">
+	<div class="navbar-dark" style="background: {{ perfil.cor }};">
 		<nav class="navbar container navbar-expand-lg">
 			<a class="navbar-brand" href="/">ConnectedIn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -55,7 +55,7 @@
 		<div class="row container">
 			<section class="col col-sm-12 col-md-3 py-3 opcoes-do-usuario">
 				<div class="card">
-					<div class="card-header center-center" style="background: #3949AB;" data-toggle="tooltip"
+					<div class="card-header center-center" style="background: {{ perfil.cor }};;" data-toggle="tooltip"
 						data-placement="bottom" title="Alterar foto do perfil">
 
 						<img src="{% if perfil.imagem_perfil %} /media/{{ perfil.imagem_perfil }}
@@ -144,18 +144,18 @@
 
 			<aside class="col col-sm-12 col-md-3 py-3">
 				<div class="bg-white card">
-					<div class="card-header text-white" style="background: #3949AB;">
+					<div class="card-header text-white" style="background: {{ perfil.cor }};;">
 						<h3 class="text-center">Convites enviados</h3>
 					</div>
 					<div class="card-body px-0 py-0">
-						{% if perfil.convites_feitos.all %}
+						{% if perfil_logado.convites_feitos.all %}
 
 						<ul class="list-group">
 							<p class="text-center px-1 pt-3">
-								você possui {{ perfil.convites_feitos.count }}
-								convite{{ perfil.convites_feitos.count|pluralize }}
+								você possui {{ perfil_logado.convites_feitos.count }}
+								convite{{ perfil_logado.convites_feitos.count|pluralize }}
 							</p>
-							{% for convite in perfil.convites_feitos.all %}
+							{% for convite in perfil_logado.convites_feitos.all %}
 							<li class="list-group-item text-center">{{ convite.convidado.nome }} <br>
 								<a href="{% url 'rejeitar' convite.id %}"
 									class="float-center btn btn-danger full-w">cancelar</a></li>
@@ -169,19 +169,19 @@
 				</div>
 
 				<div class="mt-3 card bg-white">
-					<div class="card-header text-white" style="background: #3949AB;">
+					<div class="card-header text-white" style="background: {{ perfil.cor }};;">
 						<h3 class="text-center">Convites Recebidos</h3>
 					</div>
 					<div class="card-body px-0 py-0">
-						{% if perfil.convites_recebidos.all %}
+						{% if perfil_logado.convites_recebidos.all %}
 						<ul class="list-group">
 							<p class="text-center px-1 pt-3">
 								Você possui
-								{{ perfil.convites_recebidos.count }}
-								convite{{ perfil.convites_recebidos.count|pluralize }}
+								{{ perfil_logado.convites_recebidos.count }}
+								convite{{ perfil_logado.convites_recebidos.count|pluralize }}
 							</p>
 
-							{% for convite in perfil.convites_recebidos.all %}
+							{% for convite in perfil_logado.convites_recebidos.all %}
 							<li class="list-group-item full-w text-center">{{ convite.solicitante.nome }} <br>
 								<a href="/perfil/{{ convite.id }}/aceitar"
 									class="float-center btn btn-success">Aceitar</a> <a
@@ -260,39 +260,3 @@
 </body>
 
 </html>
-
-
-
-<!-- <div class="col-lg-12">
-	<h1>Nome: {{perfil.nome}}</h1>
-	<ul class="list-group mb-2">
-		<li class="list-group-item"><em>e-mail: {{perfil.email}}</em></li>
-		<li class="list-group-item">Empresa: {{perfil.nome_empresa}}</li>
-		<li class="list-group-item">Fone: {{perfil.telefone}}</li>
-	</ul>
-	{% if ja_eh_contato %}
-	<div class="alert alert-success">
-		<p> Vocês já estão conectados</p>
-	</div>
-	<a href="{% url 'index'  %}" class="btn btn-warning">Voltar</a>
-	<a href="{% url 'desfazer' perfil.id %}" class="btn btn-danger">Desfazer amizade</a>
-
-	{% if perfil.usuario.is_superuser %}
-	{% if perfil.usuario.is_superuser %}
-	<a href="{% url 'retirar_superuser' perfil.id %}" class="btn btn-danger">Retirar superuser</a>
-	{% else %}
-	<a href="{% url 'tornar_superuser' perfil.id %}" class="btn btn-primary">Tornar superuser</a>
-	{% endif %}
-
-	{% if perfil.usuario.is_active %}
-	<a href="{% url 'bloquear_user' perfil.id %}" class="btn btn-danger">Bloquear usuário</a>
-	{% else %}
-	<a href="{% url 'desbloquear_user' perfil.id %}" class="btn btn-primary">Desbloquear usuário</a>
-	{% endif %}
-	{% endif %}
-
-	{% else %}
-	<a href="{% url 'index'  %}" class="btn btn-warning">Voltar</a>
-	<a href="{% url 'convidar' perfil.id %}" class="btn btn-success">Convidar</a>
-	{% endif %}
-</div> -->

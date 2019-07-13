@@ -9,6 +9,7 @@ class Perfil(models.Model):
     nome_empresa = models.CharField(max_length=255, null=False)
     imagem_perfil = models.ImageField(null=True, blank=True, upload_to='uploads/fotoperfil/')
     imagem_capa = models.ImageField(null=True, blank=True, upload_to='uploads/fotocapa/')
+    cor = models.CharField(max_length=10, default='#455A64')
     contatos = models.ManyToManyField('self')
 
     usuario = models.OneToOneField(User, related_name='perfil', on_delete=models.CASCADE)

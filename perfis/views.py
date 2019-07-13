@@ -118,17 +118,13 @@ def buscar_usuario(request):
     if request.method == 'POST':
         query = request.POST.get('busca')
         encontrados = list(Perfil.objects.filter(nome__contains=query))
-        encontrados.remove(request.user.perfil)
+        if request.user.perfil in encontrados:
+            encontrados.remove(request.user.perfil)
 
     dados = {}
     dados['encontrados'] = encontrados
     dados['perfil_logado'] = request.user.perfil
-    
-    word = 'perfil'
-    if len(dados['encontrados']) > 1: 
-        word = 'perfis'
-    messages.add_message(request, messages.INFO, 'Foram encontrados {} {}'.format(len(dados['encontrados']), word))
-    
+        
     return render(request, 'buscarusuario.html', dados)
 
 @login_required(login_url='login')
@@ -176,6 +172,17 @@ def alterar_capa(request):
             return redirect('index')
     except:
         return redirect('index')
+
+@login_required(login_url='login')
+def alterar_cor(request):
+    if request.method == 'POST':
+        cor = request.POST.get('cor')
+        print(cor)
+        perfil_logado = request.user.perfil
+        perfil_logado.cor = cor
+        perfil_logado.save()
+        
+    return redirect('index')
 
 @login_required(login_url='login')
 def minhas_postagens(request):

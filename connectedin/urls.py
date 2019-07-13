@@ -25,6 +25,7 @@ urlpatterns = [
     path('conexoes/', views.conexoes, name='conexoes'),
     path('alterarperfil/', views.alterar_perfil, name='alterar_perfil'),
     path('alterarcapa/', views.alterar_capa, name='alterar_capa'),
+    path('alterarcor/', views.alterar_cor, name='alterar_cor'),
     #Perfil Postagem,
     path('postagem/', views.postagem, name='postagem'),
     path('deletepostagem/<int:id_postagem>', views.delete_postagem, name='delete_postagem'),
