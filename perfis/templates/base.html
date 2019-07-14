@@ -17,7 +17,7 @@
                 background-size: cover; 
                 background-position: center; 
                 background-attachment: fixed;">
-    <div class="navbar-dark" style="background: {{ perfil_logado.cor }};">
+    <div class="navbar-dark fixed-top" style="background: {{ perfil_logado.cor }};">
         <nav class="navbar container navbar-expand-lg">
             <a class="navbar-brand" href="/">ConnectedIn</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -55,9 +55,9 @@
     </div>
 
 
-    <main class="mx-0 index">
+    <main class="mt-5 index">
         <div class="row container">
-            <section class="col col-sm-12 col-md-3 py-2 mt-2 opcoes-do-usuario">
+            <section class="col col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4 opcoes-do-usuario">
                 <div class="card">
                     <div class="card-header center-center" style="background: {{ perfil_logado.cor }};"
                         data-toggle="tooltip" data-placement="bottom" title="Alterar foto do perfil">
@@ -87,8 +87,7 @@
                 </div>
             </section>
 
-
-            <div class="col col-sm-12 col-md-6 mt-3">
+            <div class="col col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4">
                 {% if messages %}
                 <div class="full-w">
                     {% for message in messages %}
@@ -106,7 +105,7 @@
                 {% endblock %}
             </div>
 
-            <aside class="col col-sm-12 col-md-3 py-3">
+            <aside class="col col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4">
                 <div class="bg-white card">
                     <div class="card-header text-white" style="background: {{ perfil_logado.cor }};">
                         <h3 class="text-center">Convites enviados</h3>
