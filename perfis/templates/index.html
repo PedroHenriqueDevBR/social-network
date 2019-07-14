@@ -9,7 +9,7 @@
             <input type="text" name="titulo" class="form-control" placeholder="Titulo"><br>
             <textarea name="texto" class="form-control" rows="3" placeholder="Escreva o que quiser"></textarea><br>
             <input name="imagem" type="file" class="form-control-file"><br>
-            <button class="btn btn-primary full-w">Postar</button>
+            <button class="btn btn-dark full-w">Postar</button>
         </form>
     </div>
 
@@ -36,10 +36,7 @@
                         {% endif %}
                     </p>
                     <p class="card-text"><small class="text-muted">{{ post.data_postagem }}</small>
-                    {% if perfil_logado.usuario.is_superuser %}
-                    <a class="btn btn-danger text-white float-right" href="{% url 'delete_postagem' post.id %}">Deletar</a>
-                    {% endif %}
-                    {% if post.perfil == perfil_logado %}
+                    {% if perfil_logado.usuario.is_superuser or post.perfil == perfil_logado %}
                     <a class="btn btn-danger text-white float-right" href="{% url 'delete_postagem' post.id %}">Deletar</a>
                     {% endif %}
                     </p>
@@ -48,27 +45,5 @@
         </div>
         {% endfor %}
     {% endif %}
-
-    <!-- Paginação -->
-    <!-- <div class="center-center">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div> -->
-
 
 {% endblock %}

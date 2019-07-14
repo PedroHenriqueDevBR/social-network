@@ -52,19 +52,41 @@ def postagem(request):
             texto = request.POST.get('texto')
             imagem = request.FILES['imagem']
             perfil = request.user.perfil
-            # Formatação da imagem
-            file_system = FileSystemStorage()
-            file_name = file_system.save(imagem.name, imagem)
-            # Salvando no banco de dados
-            Post.objects.create(titulo=titulo, text=texto, perfil=perfil, imagem=file_name)
-            messages.add_message(request, messages.INFO, 'Postagem publicada.')
+
+            postagem_valida = True
+            if len(titulo) <= 0:
+                messages.add_message(request, messages.INFO, 'O campo de título deve ser preenchido.')
+                postagem_valida = False
+            if len(texto) <= 0:
+                messages.add_message(request, messages.INFO, 'O campo de texto deve ser preenchido.')
+                postagem_valida = False
+            if not postagem_valida:
+                return redirect('index')
+            else:
+                # Formatação da imagem
+                file_system = FileSystemStorage()
+                file_name = file_system.save(imagem.name, imagem)
+                # Salvando no banco de dados
+                Post.objects.create(titulo=titulo, text=texto, perfil=perfil, imagem=file_name)
+                messages.add_message(request, messages.INFO, 'Postagem publicada.')
 
         except Exception:
             titulo = request.POST.get('titulo')
             texto = request.POST.get('texto')
-            perfil = request.user.perfil
-            Post.objects.create(titulo=titulo, text=texto, perfil=perfil)
-            messages.add_message(request, messages.INFO, 'Postagem publicada.')
+
+            postagem_valida = True
+            if len(titulo) <= 0:
+                messages.add_message(request, messages.INFO, 'O campo de título deve ser preenchido.')
+                postagem_valida = False
+            if len(texto) <= 0:
+                messages.add_message(request, messages.INFO, 'O campo de texto deve ser preenchido.')
+                postagem_valida = False
+            if not postagem_valida:
+                return redirect('index')
+            else:
+                perfil = request.user.perfil
+                Post.objects.create(titulo=titulo, text=texto, perfil=perfil)
+                messages.add_message(request, messages.INFO, 'Postagem publicada.')
 
     return redirect('minhas_postagens')
 
@@ -83,16 +105,20 @@ def delete_postagem(request, id_postagem):
 def convidar(request, perfil_id):
     perfil_a_convidar = Perfil.objects.get(id=perfil_id)
     perfil_logado = request.user.perfil
-    perfil_logado.convidar(perfil_a_convidar)
+    convite_realizado = Convite.objects.filter(solicitante=perfil_a_convidar, convidado=perfil_logado)
 
-    messages.add_message(request, messages.INFO, 'Solicitação de amizade enviada para {}.'.format(perfil_a_convidar.nome))
+    if convite_realizado:
+        messages.add_message(request, messages.INFO, 'Impossível enviar solicitação, há uma solicitação de {} para você'.format(perfil_a_convidar.nome))
+    else:
+        perfil_logado.convidar(perfil_a_convidar)
+        messages.add_message(request, messages.INFO, 'Solicitação de amizade enviada para {}.'.format(perfil_a_convidar.nome))
 
     return redirect('index')
 
 @login_required(login_url='login')
 def aceitar(request, convite_id):
     convite = Convite.objects.get(id=convite_id)
-    messages.add_message(request, messages.INFO, 'Convite aceito para {}.'.format(convite.solicitante))
+    messages.add_message(request, messages.INFO, 'Convite aceito para {}.'.format(convite.solicitante.nome))
     convite.aceitar()
     return redirect('index')
 
@@ -117,6 +143,11 @@ def buscar_usuario(request):
 
     if request.method == 'POST':
         query = request.POST.get('busca')
+
+        if len(query) <= 0:
+            messages.add_message(request, messages.INFO, 'Digite algo no campo de busca.')
+            return redirect('index')
+
         encontrados = list(Perfil.objects.filter(nome__contains=query))
         if request.user.perfil in encontrados:
             encontrados.remove(request.user.perfil)
@@ -177,7 +208,6 @@ def alterar_capa(request):
 def alterar_cor(request):
     if request.method == 'POST':
         cor = request.POST.get('cor')
-        print(cor)
         perfil_logado = request.user.perfil
         perfil_logado.cor = cor
         perfil_logado.save()

@@ -65,7 +65,8 @@ main.login {
     background-position: center;
 }
 .form-login {
-    background: #ffffffaa;
+    background: #263238aa;
+    color: #fff;
 }
 .conteudo {
     position: relative;

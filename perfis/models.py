@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Perfil(models.Model):
     nome = models.CharField(max_length=255, null=False)
@@ -25,10 +24,6 @@ class Perfil(models.Model):
     def desfazer_amizade(self, perfil_amizade):
         self.contatos.remove(perfil_amizade.id)
 
-    def alterar_senha(self, nova_senha):
-        pass
-        # self.senha = nova_senha
-        # self.save()
 
 class Convite(models.Model):
     solicitante = models.ForeignKey(Perfil,on_delete=models.CASCADE,related_name='convites_feitos' )
