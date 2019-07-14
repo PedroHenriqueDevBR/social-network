@@ -26,6 +26,7 @@ class RegistrarUsuarioView(View):
                             nome_empresa=dados_form['nome_empresa'],
                             usuario=usuario)
             perfil.save()
+            messages.add_message(request, messages.INFO, 'Usuário cadastrado com sucesso')
             return redirect('login')
         return render(request, self.template_name, {'form': form})
 

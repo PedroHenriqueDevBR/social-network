@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
+from django.core.paginator import Paginator
 
 
 # # 
@@ -15,8 +16,16 @@ def index(request):
     dados = {}
     dados['perfis'] = Perfil.objects.all()
     dados['perfil_logado'] = request.user.perfil
-    dados['timeline'] = selecionar_posts_de_amigos(request)
+    timeline = selecionar_posts_de_amigos(request)
 
+    paginator = Paginator(timeline, 2)
+    page = request.GET.get('page')
+
+    try:
+        dados['timeline'] = paginator.page(page)
+    except Exception:
+        dados['timeline'] = paginator.page(1)
+    
     return render(request, 'index.html', dados)
 
 @login_required(login_url='login')
