@@ -57,7 +57,7 @@
 
     <main class="mx-0 index">
         <div class="row container">
-            <section class="col col-sm-12 col-md-3 py-2 opcoes-do-usuario">
+            <section class="col col-sm-12 col-md-3 py-2 mt-2 opcoes-do-usuario">
                 <div class="card">
                     <div class="card-header center-center" style="background: {{ perfil_logado.cor }};"
                         data-toggle="tooltip" data-placement="bottom" title="Alterar foto do perfil">
@@ -90,14 +90,14 @@
 
             <div class="col col-sm-12 col-md-6 mt-3">
                 {% if messages %}
-                <div class="alertas full-w">
+                <div class="full-w">
                     {% for message in messages %}
                     <div class="alert alert-primary alert-dismissible fade show full-w" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
                                 aria-hidden="true">&times;</span> </button>
                     </div>
-                    {% endfor %}
+                    {% endfor  %}
                 </div>
                 {% endif %}
 
@@ -130,8 +130,6 @@
                                     class="float-center btn btn-danger full-w">cancelar</a></li>
                             {% endfor %}
                         </ul>
-                        <a href="#" class="btn btn-light full-w" data-toggle="modal" data-target="#solicitacoes">Ver
-                            todos</a>
                         {% else %}
                         <p class=" px-2 py-3 text-center">Nenhuma solicitação enviada</p>
                         {% endif %}
@@ -164,8 +162,6 @@
                             </li>
                             {% endfor %}
                         </ul>
-                        <a href="#" class="btn btn-light full-w" data-toggle="modal" data-target="#solicitacoes">Ver
-                            todos</a>
                         {% else %}
                         <p class="px-2 py-3 text-center">Nenhuma solicitação recebida</p>
                         {% endif %}
@@ -247,82 +243,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal solicitações -->
-    <div class="modal fade" id="solicitacoes" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-secondary text-white">
-                    <h5 class="modal-title">Solicitações</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="text-white" aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h1 class="full-w bg-dark rounded text-center text-white py-2">Solicitações recebidas</h1>
-
-                    {% if perfil_logado.convites_recebidos.all %}
-                    {% for convite in perfil_logado.convites_recebidos.all %}
-                    <div class="row border rounded mb-3 py-2 px-2 bg-white">
-                        <div class="col col-md-3 py-5" style="background:  {% if convite.solicitante.imagem_perfil %} url('/media/{{ convite.solicitante.imagem_perfil }}') {% else %} url('{% static 'media/img/user.png' %}') {% endif %};
-                            background-position: center;
-                            background-size: cover;
-                            border-radius: 5px;">
-                        </div>
-                        <div class="col col-md-9 bg-white py-4">
-                            <a href="{% url 'exibir' convite.solicitante.id %}">{{ convite.solicitante.nome }}</a>
-                            <div>
-                                <a href="/perfil/{{ convite.id }}/aceitar"
-                                    class="float-center btn btn-success">Aceitar</a>
-                                <a href="/perfil/{{ convite.id }}/rejeitar"
-                                    class="float-center btn btn-danger">Rejeitar</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    
-                    {% else %}
-                    <p class="px-2 py-3 text-center">Nenhuma solicitação recebida</p>
-                    {% endif %}
-
-
-
-
-                    <h1 class="full-w bg-dark rounded text-center text-white py-2">Solicitações enviadas</h1>
-
-                    {% if perfil_logado.convites_feitos.all %}
-
-                        <ul class="list-group">
-                            <p class="text-center px-1 pt-3">
-                                você possui <span
-                                    class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
-                                convite{{ perfil_logado.convites_feitos.count|pluralize }}
-                            </p>
-                            {% for convite in perfil_logado.convites_feitos.all %}
-                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
-                                href="{% url 'exibir' convite.convidado.id %}">
-                                {{ convite.convidado.nome }}
-                            </a>
-                            <li class="list-group-item text-center">
-                                <a href="{% url 'rejeitar' convite.id %}"
-                                    class="float-center btn btn-danger full-w">cancelar</a></li>
-                            {% endfor %}
-                        </ul>
-                        <a href="#" class="btn btn-light full-w" data-toggle="modal" data-target="#solicitacoes">Ver
-                            todos</a>
-                        {% else %}
-                        <p class=" px-2 py-3 text-center">Nenhuma solicitação enviada</p>
-                        {% endif %}
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

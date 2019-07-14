@@ -49,21 +49,25 @@
 
 <nav aria-label="Page navigation full-w bg-dark">
     <ul class="pagination justify-content-center">
+        {% if timeline.has_previous %}
         <li class="page-item">
-            {% if timeline.has_previous %}
-                <a class="page-link" href="?page={{ timeline.previous_page_number }}">Anterior</a>
-            {% else %}
-                <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
-            {% endif %}            
+            <a class="page-link" href="?pagina={{ timeline.previous_page_number }}">Anterior</a>
         </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true">Anterior</a>
+        </li>
+        {% endif %}
 
+        {% if timeline.has_next %}
         <li class="page-item">
-            {% if timeline.has_next %}
-                <a class="page-link" href="?page={{ timeline.next_page_number }}">Próximo</a>
-            {% else %}
-                <a tabindex="-1" aria-disabled="true" class="page-link">Próximo</a>
-            {% endif %}
+            <a class="page-link" href="?pagina={{ timeline.next_page_number }}">Próximo</a>
         </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a tabindex="-1" aria-disabled="true" class="page-link">Próximo</a>
+        </li>
+        {% endif %}
     </ul>
 </nav>
 {% endif %}

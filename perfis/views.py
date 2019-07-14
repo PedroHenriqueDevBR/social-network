@@ -17,14 +17,15 @@ def index(request):
     dados['perfis'] = Perfil.objects.all()
     dados['perfil_logado'] = request.user.perfil
     timeline = selecionar_posts_de_amigos(request)
-
-    paginator = Paginator(timeline, 2)
-    page = request.GET.get('page')
+    paginator = Paginator(timeline, 15)
+    page = request.GET.get('pagina')
 
     try:
         dados['timeline'] = paginator.page(page)
     except Exception:
         dados['timeline'] = paginator.page(1)
+        if page is not None:
+            messages.add_message(request, messages.INFO, 'A página {} não existe'.format(page))
     
     return render(request, 'index.html', dados)
 
@@ -47,8 +48,6 @@ def esqueci_a_minha_senha(request):
             messages.add_message(request, messages.INFO, 'Email não cadastrado')
             return redirect('esqueci_senha')
         else:
-            # Deve criar um token
-            # Deve enviar uma mensagem para o email do solicitante
             messages.add_message(request, messages.INFO, 'Ainda não feito, Um email foi enviado para você contendo o link de alteração de senha')
             return redirect('login')
     return render(request, 'esqueci_senha.html')
