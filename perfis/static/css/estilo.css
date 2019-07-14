@@ -87,9 +87,6 @@ main.index {
     justify-content: center;
 }
 
-.timeline {
-    height: 100%;
-}
 .post-index .card-header p {
     width: fit-content;
     background: #000000bb;
@@ -112,4 +109,26 @@ main.index {
 
 .full-w {
     width: 100%;
+}
+
+.alertas {
+    display: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    section.descricao {
+        display: none;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+    .form-busca-usuario button {
+        width: 100%;
+    }
+    .opcoes-do-usuario .card {
+        width: 100%;
+    }
+
 }
