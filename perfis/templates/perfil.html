@@ -3,57 +3,61 @@
 <html lang="pt-br">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Connectedin - {% block title %}Página inicial{% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="{% static '/css/estilo.css' %}">
+    <meta charset="UTF-8">
+    <title>Connectedin - {% block title %}Página inicial{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
 </head>
 
-<body style="{% if perfil.imagem_capa %} background: url('/media/{{ perfil.imagem_capa }}'); {% else %} background: #CFD8DC; {% endif %} 
+<body style="{% if perfil_logado.imagem_capa %} background: url('/media/{{ perfil_logado.imagem_capa }}'); {% else %} background: #CFD8DC; {% endif %} 
                 background-repeat: no-repeat;
                 background-size: cover; 
                 background-position: center; 
                 background-attachment: fixed;">
-	<div class="navbar-dark" style="background: {{ perfil.cor }};">
-		<nav class="navbar container navbar-expand-lg">
-			<a class="navbar-brand" href="/">ConnectedIn</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+    <div class="navbar-dark fixed-top" style="background: {{ perfil_logado.cor }};">
+        <nav class="navbar container navbar-expand-lg">
+            <a class="navbar-brand" href="/">ConnectedIn</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="/">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'buscar_usuario' %}">Usuários</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'alterar_senha' %}">Alterar senha</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'deslogar' %}">Logout</a>
-					</li>
-				</ul>
-				<form method="POST" action="{% url 'buscar_usuario' %}" class="form-inline my-2 my-lg-0">
-					{% csrf_token %}
-					<input class="form-control mr-sm-2" type="search" name="busca" placeholder="Nome">
-					<button class="btn btn-warning my-2 my-sm-0" type="submit">Buscar</button>
-				</form>
-			</div>
-		</nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'buscar_usuario' %}">Usuários</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'alterar_senha' %}">Alterar senha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bloquear_meu_user' %}">Bloquear meu perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'deslogar' %}">Logout</a>
+                    </li>
+                </ul>
+                <form method="POST" action="{% url 'buscar_usuario' %}"
+                    class="form-inline my-2 my-lg-0 form-busca-usuario">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2" type="search" name="busca" placeholder="Nome">
+                    <button class="btn btn-dark my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+            </div>
+        </nav>
 
-	</div>
+    </div>
 
 
-	<main class="mx-0 index">
+	<main class="mt-5 index">
 		<div class="row container">
-			<section class="col col-sm-12 col-md-3 py-3 opcoes-do-usuario">
+			<section class="col col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4 opcoes-do-usuario">
 				<div class="card">
 					<div class="card-header center-center" style="background: {{ perfil.cor }};;" data-toggle="tooltip"
 						data-placement="bottom" title="Alterar foto do perfil">
@@ -89,7 +93,7 @@
 			</section>
 
 
-			<div class="timeline col col-sm-12 col-md-6 mt-3">
+			<div class="timeline col col-sm-12 col-md-6 mt-4">
 				<div class="container bg-white py-3 border rounded">
 					<ul class="list-group mb-2">
 						<li class="list-group-item"><em>e-mail: {{ perfil.email }}</em></li>
@@ -142,111 +146,143 @@
 				{% endif %}
 			</div>
 
-			<aside class="col col-sm-12 col-md-3 py-3">
-				<div class="bg-white card">
-					<div class="card-header text-white" style="background: {{ perfil.cor }};;">
-						<h3 class="text-center">Convites enviados</h3>
-					</div>
-					<div class="card-body px-0 py-0">
-						{% if perfil_logado.convites_feitos.all %}
+			<aside class="col col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4">
+                <div class="bg-white card">
+                    <div class="card-header text-white" style="background: {{ perfil_logado.cor }};">
+                        <h3 class="text-center">Convites enviados</h3>
+                    </div>
+                    <div class="card-body px-0 py-0">
+                        {% if perfil_logado.convites_feitos.all %}
 
-						<ul class="list-group">
-							<p class="text-center px-1 pt-3">
-								você possui {{ perfil_logado.convites_feitos.count }}
-								convite{{ perfil_logado.convites_feitos.count|pluralize }}
-							</p>
-							{% for convite in perfil_logado.convites_feitos.all %}
-							<li class="list-group-item text-center">{{ convite.convidado.nome }} <br>
-								<a href="{% url 'rejeitar' convite.id %}"
-									class="float-center btn btn-danger full-w">cancelar</a></li>
-							{% endfor %}
-						</ul>
-						<a href="#" class="btn btn-light full-w"">Ver todos</a>
-                            {% else %}
-                            <p class=" px-2 py-3 text-center">Nenhuma solicitação recebida</p>
-							{% endif %}
-					</div>
-				</div>
+                        <ul class="list-group">
+                            <p class="text-center px-1 pt-3">
+                                você possui <span
+                                    class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
+                                convite{{ perfil_logado.convites_feitos.count|pluralize }}
+                            </p>
+                            {% for convite in perfil_logado.convites_feitos.all %}
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
+                                href="{% url 'exibir' convite.convidado.id %}">
+                                {{ convite.convidado.nome }}
+                            </a>
+                            <li class="list-group-item text-center">
+                                <a href="{% url 'rejeitar' convite.id %}"
+                                    class="float-center btn btn-danger full-w">cancelar</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class=" px-2 py-3 text-center">Nenhuma solicitação enviada</p>
+                        {% endif %}
+                    </div>
+                </div>
 
-				<div class="mt-3 card bg-white">
-					<div class="card-header text-white" style="background: {{ perfil.cor }};;">
-						<h3 class="text-center">Convites Recebidos</h3>
-					</div>
-					<div class="card-body px-0 py-0">
-						{% if perfil_logado.convites_recebidos.all %}
-						<ul class="list-group">
-							<p class="text-center px-1 pt-3">
-								Você possui
-								{{ perfil_logado.convites_recebidos.count }}
-								convite{{ perfil_logado.convites_recebidos.count|pluralize }}
-							</p>
+                <div class="mt-3 card bg-white">
+                    <div class="card-header text-white" style="background: {{ perfil_logado.cor }};">
+                        <h3 class="text-center">Convites Recebidos</h3>
+                    </div>
+                    <div class="card-body px-0 py-0">
+                        {% if perfil_logado.convites_recebidos.all %}
+                        <ul class="list-group list-group-flush bg-light">
+                            <p class="text-center px-1 pt-3">
+                                Você possui
+                                <span class="badge badge-secondary">{{ perfil_logado.convites_recebidos.count }}</span>
+                                convite{{ perfil_logado.convites_recebidos.count|pluralize }}
+                            </p>
 
-							{% for convite in perfil_logado.convites_recebidos.all %}
-							<li class="list-group-item full-w text-center">{{ convite.solicitante.nome }} <br>
-								<a href="/perfil/{{ convite.id }}/aceitar"
-									class="float-center btn btn-success">Aceitar</a> <a
-									href="/perfil/{{ convite.id }}/rejeitar"
-									class="float-center btn btn-danger">Rejeitar</a> </li>
-							{% endfor %}
-						</ul>
-						<a href="#" class="btn btn-light full-w">Ver todos</a>
-						{% else %}
-						<p class="px-2 py-3 text-center">Nenhuma solicitação recebida</p>
-						{% endif %}
-					</div>
-				</div>
-			</aside>
+                            {% for convite in perfil_logado.convites_recebidos.all %}
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
+                                href="{% url 'exibir' convite.solicitante.id %}">
+                                {{ convite.solicitante.nome }}
+                            </a>
+                            <li class="list-group-item full-w text-center mb-1">
+                                <a href="/perfil/{{ convite.id }}/aceitar"
+                                    class="float-center btn btn-success">Aceitar</a> <a
+                                    href="/perfil/{{ convite.id }}/rejeitar"
+                                    class="float-center btn btn-danger">Rejeitar</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="px-2 py-3 text-center">Nenhuma solicitação recebida</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </aside>
 
-		</div>
-	</main>
+        </div>
+    </main>
 
 
-	<!-- Modal imagem perfil -->
-	<div class="modal fade" id="alterarFotoPerfil" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-secondary text-white">
-					<h5 class="modal-title">Alterar foto do perfil</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span class="text-white" aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="{% url 'alterar_perfil' %}" method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="form-group">
-							<input name="imagemperfil" type="file" class="form-control-file"
-								id="exampleFormControlFile1">
-						</div>
-						<button type="submit" class="btn btn-info full-w">Alterar</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Modal imagem perfil -->
+    <div class="modal fade" id="alterarFotoPerfil" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title">Alterar foto do perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'alterar_perfil' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input name="imagemperfil" type="file" class="form-control-file"
+                                id="exampleFormControlFile1">
+                        </div>
+                        <button type="submit" class="btn btn-info full-w">Alterar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Modal imagem capa -->
-	<div class="modal fade" id="alterarFotoCapa" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-secondary text-white">
-					<h5 class="modal-title">Alterar foto de capa</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span class="text-white" aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="{% url 'alterar_capa' %}" method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="form-group">
-							<input name="imagemcapa" type="file" class="form-control-file" id="exampleFormControlFile1">
-						</div>
-						<button type="submit" class="btn btn-info full-w">Alterar</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Modal imagem capa -->
+    <div class="modal fade" id="alterarFotoCapa" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title">Alterar foto de capa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'alterar_capa' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input name="imagemcapa" type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                        <button type="submit" class="btn btn-info full-w">Alterar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar tema -->
+    <div class="modal fade" id="alterarCorPerfil" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title">Alterar cor do perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'alterar_cor' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="cor">Escolha uma cor</label>
+                            <input name="cor" id="cor" type="color" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-info full-w">Alterar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
