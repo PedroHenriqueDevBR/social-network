@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '2gx$_^ec_2sjt24kdo=ls5+nf=1w_nadui!i54w-m50e62*sxi'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pedroribeiro.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
