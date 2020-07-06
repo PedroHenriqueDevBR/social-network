@@ -16,7 +16,9 @@ python -m pip install pillow
 
 ## Instalação
 
-https://github.com/PedroHenriqueDevBR/social-network.git
-cd social-network
-python manage.py makemigrations
-python manage.py migrate
+ ```
+> https://github.com/PedroHenriqueDevBR/social-network.git
+> cd social-network
+> python manage.py makemigrations
+> python manage.py migrate
+ ```
