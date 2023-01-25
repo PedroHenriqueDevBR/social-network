@@ -7,8 +7,8 @@
     <title>Connectedin - {% block title %}Página inicial{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="{% static '/css/estilo.css' %}" rel="stylesheet">
 </head>
 
@@ -20,8 +20,8 @@
     <div class="navbar-dark fixed-top" style="background: {{ perfil_logado.cor }};">
         <nav class="navbar container navbar-expand-lg">
             <a class="navbar-brand" href="/">Rede Social</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -43,8 +43,7 @@
                         <a class="nav-link" href="{% url 'deslogar' %}">Logout</a>
                     </li>
                 </ul>
-                <form method="POST" action="{% url 'buscar_usuario' %}"
-                    class="form-inline my-2 my-lg-0 form-busca-usuario">
+                <form method="POST" action="{% url 'buscar_usuario' %}" class="form-inline my-2 my-lg-0 form-busca-usuario">
                     {% csrf_token %}
                     <input class="form-control mr-sm-2" type="search" name="busca" placeholder="Nome">
                     <button class="btn btn-dark my-2 my-sm-0" type="submit">Buscar</button>
@@ -59,26 +58,21 @@
         <div class="row container">
             <section class="col col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4 opcoes-do-usuario">
                 <div class="card">
-                    <div class="card-header center-center" style="background: {{ perfil_logado.cor }};"
-                        data-toggle="tooltip" data-placement="bottom" title="Alterar foto do perfil">
+                    <div class="card-header center-center" style="background: {{ perfil_logado.cor }};" data-toggle="tooltip" data-placement="bottom" title="Alterar foto do perfil">
 
                         <img src="{% if perfil_logado.imagem_perfil %} /media/{{ perfil_logado.imagem_perfil }}
-                        {% else %} {% static 'media/img/user.png' %} {% endif %}" alt="Usuário" width="100%"
-                            class="img-fluid img-thumbnail"><br>
+                        {% else %} {% static 'img/user.png' %} {% endif %}" alt="Usuário" width="100%" class="img-fluid img-thumbnail"><br>
                         <p class="text-white">{{ perfil_logado.nome }}</p>
                     </div>
                     <div class="card-body">
                         <ul class="nav flex-column mt-3">
-                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal"
-                                    data-target="#alterarFotoPerfil">Alterar foto perfil</a> </li>
-                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal"
-                                    data-target="#alterarFotoCapa">Alterar foto capa</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal" data-target="#alterarFotoPerfil">Alterar foto perfil</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal" data-target="#alterarFotoCapa">Alterar foto capa</a> </li>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'minhas_postagens' %}">Minhas postagens</a>
                             </li>
-                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal"
-                                    data-target="#alterarCorPerfil">Alterar cores</a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="" data-toggle="modal" data-target="#alterarCorPerfil">Alterar cores</a> </li>
                             </li>
 
                             <li class="nav-item"> <a class="nav-link" href="{% url 'conexoes' %}">Conexões</a> </li>
@@ -93,10 +87,9 @@
                     {% for message in messages %}
                     <div class="alert alert-primary alert-dismissible fade show full-w" role="alert">
                         {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span
-                                aria-hidden="true">&times;</span> </button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                     </div>
-                    {% endfor  %}
+                    {% endfor %}
                 </div>
                 {% endif %}
 
@@ -115,18 +108,16 @@
 
                         <ul class="list-group">
                             <p class="text-center px-1 pt-3">
-                                você possui <span
-                                    class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
+                                você possui <span class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
                                 convite{{ perfil_logado.convites_feitos.count|pluralize }}
                             </p>
                             {% for convite in perfil_logado.convites_feitos.all %}
-                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
-                                href="{% url 'exibir' convite.convidado.id %}">
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center" href="{% url 'exibir' convite.convidado.id %}">
                                 {{ convite.convidado.nome }}
                             </a>
                             <li class="list-group-item text-center">
-                                <a href="{% url 'rejeitar' convite.id %}"
-                                    class="float-center btn btn-danger full-w">cancelar</a></li>
+                                <a href="{% url 'rejeitar' convite.id %}" class="float-center btn btn-danger full-w">cancelar</a>
+                            </li>
                             {% endfor %}
                         </ul>
                         {% else %}
@@ -149,14 +140,11 @@
                             </p>
 
                             {% for convite in perfil_logado.convites_recebidos.all %}
-                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
-                                href="{% url 'exibir' convite.solicitante.id %}">
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center" href="{% url 'exibir' convite.solicitante.id %}">
                                 {{ convite.solicitante.nome }}
                             </a>
                             <li class="list-group-item full-w text-center mb-1">
-                                <a href="/perfil/{{ convite.id }}/aceitar"
-                                    class="float-center btn btn-success">Aceitar</a> <a
-                                    href="/perfil/{{ convite.id }}/rejeitar"
+                                <a href="/perfil/{{ convite.id }}/aceitar" class="float-center btn btn-success">Aceitar</a> <a href="/perfil/{{ convite.id }}/rejeitar"
                                     class="float-center btn btn-danger">Rejeitar</a>
                             </li>
                             {% endfor %}
@@ -186,8 +174,7 @@
                     <form action="{% url 'alterar_perfil' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input name="imagemperfil" type="file" class="form-control-file"
-                                id="exampleFormControlFile1">
+                            <input name="imagemperfil" type="file" class="form-control-file" id="exampleFormControlFile1">
                         </div>
                         <button type="submit" class="btn btn-info full-w">Alterar</button>
                     </form>
@@ -243,14 +230,10 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 </body>
 

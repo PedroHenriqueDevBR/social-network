@@ -11,8 +11,7 @@
         {% if encontrado in user.perfil.contatos.all %}
 
         <div class="row border rounded mb-3 py-2 px-2 bg-white">
-            <div class="col col-md-3 py-5"
-                style="background:  {% if encontrado.imagem_perfil %} url('/media/{{ encontrado.imagem_perfil }}') {% else %} url('{% static 'media/img/user.png' %}') {% endif %} ;
+            <div class="col col-md-3 py-5" style="background:  {% if encontrado.imagem_perfil %} url('/media/{{ encontrado.imagem_perfil }}') {% else %} url('{% static 'img/user.png' %}') {% endif %} ;
                         background-position: center;
                         background-size: cover;
                         border-radius: 5px;"></div>
@@ -26,11 +25,10 @@
         {% else %}
 
         <div class="row border rounded mb-3 py-2 px-2 bg-white">
-            <div class="col col-md-3 py-5"
-            style="background:  {% if encontrado.imagem_perfil %} url('/media/{{ encontrado.imagem_perfil }}') {% else %} url('{% static 'media/img/user.png' %}') {% endif %};
+            <div class="col col-md-3 py-5" style="background:  {% if encontrado.imagem_perfil %} url('/media/{{ encontrado.imagem_perfil }}') {% else %} url('{% static 'img/user.png' %}') {% endif %};
             background-position: center;
             background-size: cover;
-            border-radius: 5px;"    >
+            border-radius: 5px;">
             </div>
             <div class="col col-md-9 bg-white py-4">
                 <p>{{ encontrado.nome }}</p>

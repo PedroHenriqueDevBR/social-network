@@ -7,8 +7,8 @@
     <title>Connectedin - {% block title %}Página inicial{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="{% static '/css/estilo.css' %}">
 </head>
 
@@ -20,8 +20,8 @@
     <div class="navbar-dark fixed-top" style="background: {{ perfil_logado.cor }};">
         <nav class="navbar container navbar-expand-lg">
             <a class="navbar-brand" href="/">ConnectedIn</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -43,8 +43,7 @@
                         <a class="nav-link" href="{% url 'deslogar' %}">Logout</a>
                     </li>
                 </ul>
-                <form method="POST" action="{% url 'buscar_usuario' %}"
-                    class="form-inline my-2 my-lg-0 form-busca-usuario">
+                <form method="POST" action="{% url 'buscar_usuario' %}" class="form-inline my-2 my-lg-0 form-busca-usuario">
                     {% csrf_token %}
                     <input class="form-control mr-sm-2" type="search" name="busca" placeholder="Nome">
                     <button class="btn btn-dark my-2 my-sm-0" type="submit">Buscar</button>
@@ -55,98 +54,95 @@
     </div>
 
 
-	<main class="mt-5 index">
-		<div class="row container">
-			<section class="col col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4 opcoes-do-usuario">
-				<div class="card">
-					<div class="card-header center-center" style="background: {{ perfil.cor }};;" data-toggle="tooltip"
-						data-placement="bottom" title="Alterar foto do perfil">
+    <main class="mt-5 index">
+        <div class="row container">
+            <section class="col col-sm-12 col-md-3 col-lg-3 col-xl-3 mt-4 opcoes-do-usuario">
+                <div class="card">
+                    <div class="card-header center-center" style="background: {{ perfil.cor }};;" data-toggle="tooltip" data-placement="bottom" title="Alterar foto do perfil">
 
-						<img src="{% if perfil.imagem_perfil %} /media/{{ perfil.imagem_perfil }}
-                        {% else %} {% static 'media/img/user.png' %} {% endif %}" alt="Usuário" width="100%"
-							class="img-fluid img-thumbnail"><br>
-						<p class="text-white">{{ perfil.nome }}</p>
-					</div>
-					<div class="card-body">
-						{% if ja_eh_contato %}
-							<a href="{% url 'desfazer' perfil.id %}">Desfazer amizade</a><br>
+                        <img src="{% if perfil.imagem_perfil %} /media/{{ perfil.imagem_perfil }}
+                        {% else %} {% static 'img/user.png' %} {% endif %}" alt="Usuário" width="100%" class="img-fluid img-thumbnail"><br>
+                        <p class="text-white">{{ perfil.nome }}</p>
+                    </div>
+                    <div class="card-body">
+                        {% if ja_eh_contato %}
+                        <a href="{% url 'desfazer' perfil.id %}">Desfazer amizade</a><br>
 
-							{% if perfil_logado.usuario.is_superuser %}
-								{% if perfil.usuario.is_superuser %}
-									<a href="{% url 'retirar_superuser' perfil.id %}">Retirar superuser</a><br>
-								{% else %}
-									<a href="{% url 'tornar_superuser' perfil.id %}">Tornar superuser</a><br>
-								{% endif %}
+                        {% if perfil_logado.usuario.is_superuser %}
+                        {% if perfil.usuario.is_superuser %}
+                        <a href="{% url 'retirar_superuser' perfil.id %}">Retirar superuser</a><br>
+                        {% else %}
+                        <a href="{% url 'tornar_superuser' perfil.id %}">Tornar superuser</a><br>
+                        {% endif %}
 
-								{% if perfil.usuario.is_active %}
-									<a href="{% url 'bloquear_user' perfil.id %}">Bloquear usuário</a><br>
-								{% else %}
-									<a href="{% url 'desbloquear_user' perfil.id %}">Desbloquear usuário</a><br>
-								{% endif %}
-							{% endif %}
+                        {% if perfil.usuario.is_active %}
+                        <a href="{% url 'bloquear_user' perfil.id %}">Bloquear usuário</a><br>
+                        {% else %}
+                        <a href="{% url 'desbloquear_user' perfil.id %}">Desbloquear usuário</a><br>
+                        {% endif %}
+                        {% endif %}
 
-						{% else %}
-							<a href="{% url 'convidar' perfil.id %}">Convidar</a>
-						{% endif %}
-					</div>
-				</div>
-			</section>
+                        {% else %}
+                        <a href="{% url 'convidar' perfil.id %}">Convidar</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
 
 
-			<div class="timeline col col-sm-12 col-md-6 mt-4">
-				<div class="container bg-white py-3 border rounded">
-					<ul class="list-group mb-2">
-						<li class="list-group-item"><em>e-mail: {{ perfil.email }}</em></li>
-						<li class="list-group-item">Fone: {{ perfil.telefone }}</li>
-						<li class="list-group-item">Empresa: {{ perfil.nome_empresa }}</li>
-					</ul>
-					{% if ja_eh_contato %}
-					<div class="alert alert-success">
-						<p> Vocês já estão conectados</p>
-					</div>
-					{% endif %}
-					{% if perfil.usuario.is_active == False %}
-					<div class="alert alert-danger">
-						<p>Este perfil encontra-se bloqueado</p>
-					</div>
-					{% endif %}
-				</div>
+            <div class="timeline col col-sm-12 col-md-6 mt-4">
+                <div class="container bg-white py-3 border rounded">
+                    <ul class="list-group mb-2">
+                        <li class="list-group-item"><em>e-mail: {{ perfil.email }}</em></li>
+                        <li class="list-group-item">Fone: {{ perfil.telefone }}</li>
+                        <li class="list-group-item">Empresa: {{ perfil.nome_empresa }}</li>
+                    </ul>
+                    {% if ja_eh_contato %}
+                    <div class="alert alert-success">
+                        <p> Vocês já estão conectados</p>
+                    </div>
+                    {% endif %}
+                    {% if perfil.usuario.is_active == False %}
+                    <div class="alert alert-danger">
+                        <p>Este perfil encontra-se bloqueado</p>
+                    </div>
+                    {% endif %}
+                </div>
 
 
-				{% if timeline %}
-				{% for post in timeline %}
-				<div class="card post-index my-4" style="max-width: 100%;">
-					<div class="no-gutters">
-						<div class="card-header" style="{% if post.perfil.imagem_capa %} background: url('/media/{{ post.perfil.imagem_capa }}'); {% else %} background: url('{% static 'media/img/bg01.jpg' %}'); {% endif %} 
+                {% if timeline %}
+                {% for post in timeline %}
+                <div class="card post-index my-4" style="max-width: 100%;">
+                    <div class="no-gutters">
+                        <div class="card-header" style="{% if post.perfil.imagem_capa %} background: url('/media/{{ post.perfil.imagem_capa }}'); {% else %} background: url('{% static 'img/bg01.jpg' %}'); {% endif %} 
                                                 background-repeat: no-repeat;
                                                 background-size: cover; 
                                                 background-position: center;">
-							<img src="{% if post.perfil.imagem_perfil %} /media/{{ post.perfil.imagem_perfil }} {% else %} {% static 'media/img/user.png' %} {% endif %}"
-								width="100" alt="Usuário" class="img-thumbnail">
-							<p class="text-white">{{ post.perfil.nome }}</p>
-						</div>
-						<div class="card-body pb-4">
-							<h5 class="card-title">{{ post.titulo }}</h5>
-							<p class="card-text">
-								{{ post.text }}
-								{% if post.imagem %}
-								<img src="/media/{{ post.imagem }}" alt="Post imagem"
-									class="img-fluid full-w border rounded mt-2">
-								{% endif %}
-							</p>
-							<p class="card-text"><small class="text-muted">{{ post.data_postagem }}</small> 
-							{% if perfil_logado.usuario.is_superuser %}
-							<a class="btn btn-danger text-white float-right" href="{% url 'delete_postagem' post.id %}">Deletar</a>
-							{% endif %}
-							</p>
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-				{% endif %}
-			</div>
+                            <img src="{% if post.perfil.imagem_perfil %} /media/{{ post.perfil.imagem_perfil }} {% else %} {% static 'img/user.png' %} {% endif %}" width="100" alt="Usuário"
+                                class="img-thumbnail">
+                            <p class="text-white">{{ post.perfil.nome }}</p>
+                        </div>
+                        <div class="card-body pb-4">
+                            <h5 class="card-title">{{ post.titulo }}</h5>
+                            <p class="card-text">
+                                {{ post.text }}
+                                {% if post.imagem %}
+                                <img src="/media/{{ post.imagem }}" alt="Post imagem" class="img-fluid full-w border rounded mt-2">
+                                {% endif %}
+                            </p>
+                            <p class="card-text"><small class="text-muted">{{ post.data_postagem }}</small>
+                                {% if perfil_logado.usuario.is_superuser %}
+                                <a class="btn btn-danger text-white float-right" href="{% url 'delete_postagem' post.id %}">Deletar</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
 
-			<aside class="col col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4">
+            <aside class="col col-sm-12 col-md-12 col-lg-3 col-xl-3 mt-4">
                 <div class="bg-white card">
                     <div class="card-header text-white" style="background: {{ perfil_logado.cor }};">
                         <h3 class="text-center">Convites enviados</h3>
@@ -156,18 +152,16 @@
 
                         <ul class="list-group">
                             <p class="text-center px-1 pt-3">
-                                você possui <span
-                                    class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
+                                você possui <span class="badge badge-secondary">{{ perfil_logado.convites_feitos.count }}</span>
                                 convite{{ perfil_logado.convites_feitos.count|pluralize }}
                             </p>
                             {% for convite in perfil_logado.convites_feitos.all %}
-                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
-                                href="{% url 'exibir' convite.convidado.id %}">
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center" href="{% url 'exibir' convite.convidado.id %}">
                                 {{ convite.convidado.nome }}
                             </a>
                             <li class="list-group-item text-center">
-                                <a href="{% url 'rejeitar' convite.id %}"
-                                    class="float-center btn btn-danger full-w">cancelar</a></li>
+                                <a href="{% url 'rejeitar' convite.id %}" class="float-center btn btn-danger full-w">cancelar</a>
+                            </li>
                             {% endfor %}
                         </ul>
                         {% else %}
@@ -190,14 +184,11 @@
                             </p>
 
                             {% for convite in perfil_logado.convites_recebidos.all %}
-                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center"
-                                href="{% url 'exibir' convite.solicitante.id %}">
+                            <a class="list-group-item list-group-item-action list-group-item-light full-w text-center" href="{% url 'exibir' convite.solicitante.id %}">
                                 {{ convite.solicitante.nome }}
                             </a>
                             <li class="list-group-item full-w text-center mb-1">
-                                <a href="/perfil/{{ convite.id }}/aceitar"
-                                    class="float-center btn btn-success">Aceitar</a> <a
-                                    href="/perfil/{{ convite.id }}/rejeitar"
+                                <a href="/perfil/{{ convite.id }}/aceitar" class="float-center btn btn-success">Aceitar</a> <a href="/perfil/{{ convite.id }}/rejeitar"
                                     class="float-center btn btn-danger">Rejeitar</a>
                             </li>
                             {% endfor %}
@@ -227,8 +218,7 @@
                     <form action="{% url 'alterar_perfil' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                            <input name="imagemperfil" type="file" class="form-control-file"
-                                id="exampleFormControlFile1">
+                            <input name="imagemperfil" type="file" class="form-control-file" id="exampleFormControlFile1">
                         </div>
                         <button type="submit" class="btn btn-info full-w">Alterar</button>
                     </form>
@@ -284,15 +274,11 @@
         </div>
     </div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
