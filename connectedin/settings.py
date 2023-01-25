@@ -65,11 +65,12 @@ DATABASES = {
     }
 }
 
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
 AWS_ACCESS_KEY_ID = os.environ.get("S3_ACCESS_KEY")
-AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
 AWS_S3_ENDPOINT_URL = os.environ.get("S3_ENDPOINT_URL")
+AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("S3_BUCKET_NAME")
 
 
 # Password validation
